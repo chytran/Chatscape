@@ -1,12 +1,13 @@
-const io = require('socket.io')(3000);
-var express = require('express');
-var app = express();
+const path = require('path');
+const express = require('express');
 
-var cors = require('cors')
+const app = express();
 
-app.use(cors());
+// Set static folder
+app.use(express.static(path.join(__dirname, 'assets/html')));
 
-io.on('connection', socket => {
-    console.log("hello");
-    socket.emit('chat-message', 'Hello World')
-});
+const PORT = 3000 || process.env.PORT;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+})

@@ -2,9 +2,10 @@
   "name": "chatscape",
   "version": "1.0.0",
   "description": "Creating a chat app for users to chat from two seperate locations",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "start": "node server",
+    "devStart": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
     "socket.io": "^4.1.2"
   }
 }
