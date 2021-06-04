@@ -1,0 +1,18 @@
+{
+  "name": "chatscape",
+  "version": "1.0.0",
+  "description": "Creating a chat app for users to chat from two seperate locations",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Chatscape"
+  },
+  "author": "Kevin Tran, Melissa Lava",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.1.2"
+  }
+}
