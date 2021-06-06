@@ -13,6 +13,8 @@ app.use(express.static(path.join(__dirname, 'assets')));
 // Run when client connects
 io.on('connection', socket => {
     console.log("New connection");
+
+    socket.emit('message', "Welcome to the chat room")
 })
 
 const PORT = 3000 || process.env.PORT;
