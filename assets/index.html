@@ -7,7 +7,7 @@
     <title>Chatscape</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Boxicon -->
 
@@ -24,7 +24,7 @@
 
         <ul class="nav__menu" id="nav-menu">
             <li class="nav__item"><a href="/" class="nav__link">Home</a></li>
-            <li class="nav__item"><a href="/" class="nav__link">Chat</a></li>
+            <li class="nav__item"><a href="html/app.html" class="nav__link">Chat</a></li>
             <li class="nav__item"><a href="/" class="nav__link">Contact</a></li>
             <li class="nav__item"><a href="/" class="nav__link">Login</a></li>
         </ul>
@@ -45,10 +45,22 @@
                         required
                         >
                     </div>
+                    <div class="form-control">
+						<label for="room">Room</label>
+						<select name="room" id="room">
+							<option value="JavaScript">JavaScript</option>
+							<option value="Python">Python</option>
+							<option value="PHP">PHP</option>
+							<option value="C#">C#</option>
+							<option value="Ruby">Ruby</option>
+							<option value="Java">Java</option>
+						</select>
+					</div>
+					<button type="submit" class="btn">Join Chat</button>
                 </form>
             </div>
         </div>
     </section>
 </body>
-<script src="/assets/js/main.js"></script>
+<script src="js/main.js"></script>
 </html>
