@@ -60,21 +60,46 @@
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script>
       const chat = document.getElementById('chat-form');
+      const chatMessage = document.querySelector(".chat-messages");
 
       const socket = io();
 
+      // Message from server
       socket.on('message', message => {
         console.log(message);
+        outputMessage(message);
+
+        // Scroll down when getting a message
+        chatMessage.scrollTop = chatMessage.scrollHeight;
       })
 
       // Message submitted
       chat.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        // Get message
         const msg = e.target.elements.msg.value;
 
-        console.log(msg);
+        // Emit message to server
+        socket.emit('chatMessage', msg);
+        
+        // Clear input
+        e.target.elements.msg.value = '';
+        e.target.elements.msg.focus();
       })
+
+      function outputMessage(message) {
+        const div = document.createElement('div');
+        div.classList.add('message');
+        div.innerHTML = `
+            <p class="meta">Brad <span>9:12pm</span></p>
+						<p class="text">
+							${message}
+						</p>
+        `;
+
+        document.querySelector('.chat-messages').appendChild(div);
+      }
   </script>
 </body>
 </html>
