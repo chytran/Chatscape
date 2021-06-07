@@ -14,7 +14,18 @@ app.use(express.static(path.join(__dirname, 'assets')));
 io.on('connection', socket => {
     console.log("New connection");
 
-    socket.emit('message', "Welcome to the chat room")
+    // broadcast to current user
+    socket.emit('message', "Welcome to the chat room");
+
+    // Broadcast when a user connects
+    // Broad to everyone except the client that is connecting
+    socket.broadcast.emit('message', 'A user has joined the chat');
+
+    // Runs when client disconnects
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left the chat');
+    });
+
 })
 
 const PORT = 3000 || process.env.PORT;
