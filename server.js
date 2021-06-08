@@ -22,24 +22,36 @@ io.on('connection', socket => {
         socket.join(user.room);
 
         // broadcast to current user
-        socket.emit('message', formatMessage(botName, "Welcome to the chat room"));
+        socket.emit('message', formatMessage(botName, `${user.username} has entered the chat room`));
 
         // Broadcast when a user connects
         // Broad to everyone except the client that is connecting
-        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
-
+        socket.broadcast
+            .to(user.room)
+            .emit(
+                'message', 
+                formatMessage(botName, `${user.username} has joined the chat`)
+            );
     });
 
     console.log("New connection");
 
     // listen for chatMessage
     socket.on('chatMessage', (message) => {
-        io.emit('message', formatMessage('USER', message));
+        const user = getCurrentUser(socket.id);
+
+        io.to(user.room).emit('message', formatMessage(user.username, message));
+
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
+        })
     })
 
     // Runs when client disconnects
-    socket.on('disconnect', () => {
-        io.emit('message', formatMessage(botName, 'A user has left the chat'));
+    socket.on('disconnect', () => {     
+        io.emit('message', formatMessage(botName, "user has left the chat"));    
     });
 })
 
@@ -73,4 +85,18 @@ function joinUser(id, username, room){
 // Get current user
 function getCurrentUser(id) {
     return users.find(user => user.id === id);
+}
+
+// user leaves chat
+function userLeaves(id){
+    const index = users.findIndex(user => user.id === id);
+
+    if(index !== -1){
+        return users.splice(index, 1)[0];
+    }
+}
+
+// Get room users
+function getRoomUsers(room) {
+    return users.filter(user => user.room === room);
 }
